@@ -60,8 +60,6 @@ public class GFG {
 
         nlp = sourcy.load("java")
         a = nlp(code)
-
-        print("heloooooo", type(a))
-        print(a.tokens)
-
-        assert True
+        for k in a:
+            print(k)
+        self.assertTrue(True)
