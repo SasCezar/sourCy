@@ -1,3 +1,5 @@
+from collections import deque
+
 import tree_sitter
 
 from sourcy.doc import Document
@@ -15,42 +17,30 @@ class Parser(object):
         tree = self.parser.parse(bytes(code, "utf8"))
         return tree
 
-    def _extract_tokens(self, code, tree):
-        return self._traverse(code, tree)
-
     def __call__(self, code, *args, **kwargs):
         tree = self._create_tree(code)
-        tokens, annotations = self._extract_tokens(code, tree)
+        tokens, annotations = self._itraverse(code, tree)
 
         return Document(code, tokens, annotations)
 
-    def _traverse(self, code, tree):
-        tokens = []
-        annotations = []
+    def _itraverse(self, code, tree):
+        root = tree.root_node
 
-        def __traverse(code, node):
-            if node.type != tree.root_node.type and len(node.children) == 0:
-                token, annotation = self._extract_token_annotation(code, node)
+        stack = deque()
+        stack.append(root)
+        tokens, annotations = [], []
+        while len(stack):
+            current = stack.pop()
+
+            if current.type != tree.root_node.type and len(current.children) == 0:
+                token, annotation = self._extract_token_annotation(code, current)
                 tokens.append(token)
                 annotations.append(annotation)
-            # if node.type in ["import_declaration", "package_declaration"]:
-            #     token, annotation = self._extract_annotation(code, node.children[0])
-            #     tokens.append(token)
-            #     annotations.append(token)
-            #
-            #     token, annotation = self._extract_annotation(code, node.children[1])
-            #     tokens.append(token)
-            #     annotations.append(token)
-            # else:
-            for child in node.children:
-                # if node.type != "program" and child.start_point == node.start_point \
-                # and (child.start_point <= node.end_point or child.end_point <= node.end_point):
-                #    continue
-                __traverse(code, child)
 
-        __traverse(code, tree.root_node)
+            for child in current.children:
+                stack.append(child)
 
-        return tokens, annotations
+        return tokens[::-1], annotations[::-1]
 
     def _extract_token_annotation(self, code, node):
         token = code[node.start_byte:node.end_byte]
