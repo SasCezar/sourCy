@@ -1,5 +1,16 @@
 class Document(object):
+    """
+    A sequence of :class: 'tokens.token.Token' containing the annotations for the source code
+    """
+
     def __init__(self, code, tokens, *args, **kwargs):
+        """
+
+        :param code:
+        :param tokens:
+        :param args:
+        :param kwargs:
+        """
         self._code = code
         self._tokens = tokens
 

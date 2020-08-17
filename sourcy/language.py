@@ -2,6 +2,10 @@ from sourcy.parser import Parser
 
 
 class Language(object):
+    """
+    Class containing the processing pipelines to apply on a source code of a specific language
+    """
+
     def __init__(self, lang):
         self.parser = Parser(lang)
 

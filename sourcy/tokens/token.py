@@ -1,5 +1,15 @@
 class Token(object):
+    """
+    Container for the token text and its annotations
+    """
+
     def __init__(self, token, annotation=None, block_annotation=None):
+        """
+
+        :param token:
+        :param annotation:
+        :param block_annotation:
+        """
         self._token = token
         self._annotation = annotation
         self._block = block_annotation
