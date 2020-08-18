@@ -1,0 +1,16 @@
+language: python
+python:
+  - '3.6'
+  - '3.7'
+  - '3.8'
+install:
+  - pip install -r requirements.txt
+script:
+  pytest
+deploy:
+  provider: pypi
+  username: __token__
+  password:
+    secure: XgTokidLuZY5RT9utpkMJ3NDa6uhlbKtGKGahIJTXPSYVbNeOVL3LVult7MlrAaPnniw/hrowRKiGi2IBOxLxZFo2WqYiLp36zFKxIfH5GPRpgHCAzCFWm64b6O8rlWRTI7GUaoQhNzjRc1outRWk2otL1dnUL3t9oi2pBtrwjI0PfZy7wmFdfyVmzxdrFTQ2JuFQ6KY2VVoo3akAwcak9zH5BioRK6lL8o4Ph/MamNHzkaV5Gq6fkENvylZ8/NpbeKIeRS/S9JBRZ683KvR20t8Sr4yHDuapNG60194MTdHNpGqoTyRI2DHieEpP1DAH51aNjlDViveF/taSyI4QCDEfv4gQlpCn4762tpvYOYKJIBcUgmVyLX/Gz7rQEowUYlzRU9hojZdOiEmtydeC6AO6jdzYkJ4J45je+xUbYQ65IHVP4KkK/aN6ygGZkZ6PdT0jIPxSGkstd2znvGz1GomVPQJl2T6ORRM/Fo36Wxgp6SFieErMatnGBhDM1O1PV9RREqV8WKGiYhk0fglCVkzyQKa7wcrfih6fS6QId/C4LMNFfS3mRWKqNW8BpohH3iOxVO7LoFmczD/xx0jnMECLbkxXF8UaYSAlw4VtEL2SMB8UZkwCqazrleYVjUTBt4Le+7PR6xk8dfu81OZG0CS9k4kmr6jcmhFKxDKZ74=
+  on:
+    python: 3.8
