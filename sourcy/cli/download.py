@@ -14,7 +14,7 @@ def download(langs):
     """
     from tree_sitter import Language
 
-    for lang in langs[1:]:
+    for lang in langs:
         out = f"../grammars/tree-sitter-{lang}"
         try:
             clone_url = f"https://github.com/tree-sitter/tree-sitter-{lang}"
