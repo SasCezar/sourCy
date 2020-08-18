@@ -14,9 +14,8 @@ sourCy
         :alt: Documentation Status
 
 
-
-
-A library for Natural Language Processing style preprocessing for source code in different languages
+A library for NLP like preprocessing for source code in different programming languages.
+The architecture follows the one of `spaCy`_.
 
 
 * Free software: GNU General Public License v3
@@ -26,7 +25,8 @@ A library for Natural Language Processing style preprocessing for source code in
 Features
 --------
 
-* TODO
+* **Grammar based parsing**
+* **Multilanguage Support**
 
 Credits
 -------
@@ -35,3 +35,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`spaCy`: https://github.com/explosion/spaCy
