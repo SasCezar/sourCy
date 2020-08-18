@@ -1,6 +1,8 @@
 from collections import deque
+from typing import List
 
 import tree_sitter
+from tree_sitter.binding import Tree, Node
 
 from sourcy.tokens.doc import Document
 from sourcy.tokens.token import Token
@@ -11,7 +13,7 @@ class Parser(object):
 
     """
 
-    def __init__(self, lang, *args, **kwargs):
+    def __init__(self, lang: str, *args, **kwargs):
         """
 
         :param lang: The name of the language to parse
@@ -23,7 +25,7 @@ class Parser(object):
         self.parser = tree_sitter.Parser()
         self.parser.set_language(self.language)
 
-    def _create_tree(self, code):
+    def _create_tree(self, code: bytes) -> Tree:
         """
         Parses he code and returns a (S-expression)[https://en.wikipedia.org/wiki/S-expression] formatted Concrete
         Syntax Tree.
@@ -31,16 +33,17 @@ class Parser(object):
         :param code:
         :return:
         """
-        tree = self.parser.parse(bytes(code, "utf8"))
+        tree = self.parser.parse(code)
         return tree
 
-    def __call__(self, code, *args, **kwargs):
+    def __call__(self, code: str, *args, **kwargs) -> Document:
+        code = bytes(code, "utf8")
         tree = self._create_tree(code)
         tokens = self._traverse(code, tree)
 
         return Document(code, tokens)
 
-    def _traverse(self, code, tree):
+    def _traverse(self, code: bytes, tree: Tree) -> List[Token]:
         """
         Post-order tree traversal that returns a list of tokens with their annotations
 
@@ -65,7 +68,7 @@ class Parser(object):
 
         return tokens[::-1]
 
-    def _extract_token_annotation(self, code, node):
+    def _extract_token_annotation(self, code: bytes, node: Node) -> (bytes, str):
         """
         Extract the token string from the code
 
