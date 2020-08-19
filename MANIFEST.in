@@ -10,4 +10,4 @@ recursive-exclude * *.py[co]
 
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
 
-include spacy/grammars/languages.so
+recursive-include sourcy *.so
