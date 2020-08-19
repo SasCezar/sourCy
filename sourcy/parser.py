@@ -1,3 +1,4 @@
+import os
 from collections import deque
 from typing import List
 
@@ -21,7 +22,8 @@ class Parser(object):
         :param kwargs:
         """
         self.lang = lang
-        self.language = tree_sitter.Language("./grammars/languages.so", f"{lang}")
+        self.language = tree_sitter.Language(os.path.join(os.path.dirname(__file__), "grammars", "languages.so"),
+                                             f"{lang}")
         self.parser = tree_sitter.Parser()
         self.parser.set_language(self.language)
 
