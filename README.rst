@@ -21,12 +21,17 @@ The architecture follows the one of `spaCy`_.
 * Free software: GNU General Public License v3
 * Documentation: https://sourcy.readthedocs.io.
 
-
 Features
 --------
 
 * **Grammar based parsing**
 * **Multilanguage Support**
+
+Usage
+--------
+
+.. include:: docs/usage.rst
+    :start-line: 3
 
 Credits
 -------
