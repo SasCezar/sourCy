@@ -1,11 +1,8 @@
-import unittest
-
 import sourcy
 
 
-class TestAll(unittest.TestCase):
-    def test_parsing(self):
-        code = """/*
+def test_parsing():
+    code = """/*
  * Copyright (C) 2016 The Guava Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -58,8 +55,9 @@ public class GFG {
 
 """
 
-        nlp = sourcy.load("java")
-        a = nlp(code)
-        for k in a:
-            print(k)
-        self.assertTrue(True)
+    nlp = sourcy.load("java")
+    a = nlp(code)
+    for k in a:
+        print(k)
+
+    assert True == True
