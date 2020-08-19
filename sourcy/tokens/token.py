@@ -3,7 +3,7 @@ class Token(object):
     Container for the token text and its annotations
     """
 
-    def __init__(self, token, annotation=None, block_annotation=None):
+    def __init__(self, token: str, annotation=None, block_annotation=None):
         """
 
         :param token:

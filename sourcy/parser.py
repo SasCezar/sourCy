@@ -27,7 +27,7 @@ class Parser(object):
 
     def _create_tree(self, code: bytes) -> Tree:
         """
-        Parses he code and returns a (S-expression)[https://en.wikipedia.org/wiki/S-expression] formatted Concrete
+        Parses the code and returns a (S-expression)[https://en.wikipedia.org/wiki/S-expression] formatted Concrete
         Syntax Tree.
 
         :param code:
@@ -37,9 +37,9 @@ class Parser(object):
         return tree
 
     def __call__(self, code: str, *args, **kwargs) -> Document:
-        code = bytes(code, "utf8")
-        tree = self._create_tree(code)
-        tokens = self._traverse(code, tree)
+        code_b = bytes(code, "utf8")
+        tree = self._create_tree(code_b)
+        tokens = self._traverse(code_b, tree)
 
         return Document(code, tokens)
 
@@ -62,13 +62,14 @@ class Parser(object):
             if current.type != tree.root_node.type and len(current.children) == 0:
                 token, annotation = self._extract_token_annotation(code, current)
                 _, block_annotation = self._extract_token_annotation(code, parent)
-                tokens.append(Token(token, annotation, block_annotation))
+                tokens.append(Token(token.decode("utf8"), annotation, block_annotation))
             for child in current.children:
                 stack.append((child, current))
 
         return tokens[::-1]
 
-    def _extract_token_annotation(self, code: bytes, node: Node) -> (bytes, str):
+    @staticmethod
+    def _extract_token_annotation(code: bytes, node: Node) -> (bytes, str):
         """
         Extract the token string from the code
 
