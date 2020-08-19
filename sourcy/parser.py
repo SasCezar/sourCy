@@ -21,7 +21,7 @@ class Parser(object):
         :param kwargs:
         """
         self.lang = lang
-        self.language = tree_sitter.Language("sourcy/grammars/languages.so", f"{lang}")
+        self.language = tree_sitter.Language("./grammars/languages.so", f"{lang}")
         self.parser = tree_sitter.Parser()
         self.parser.set_language(self.language)
 
