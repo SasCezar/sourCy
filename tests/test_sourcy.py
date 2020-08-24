@@ -8,7 +8,7 @@ class TestJava(unittest.TestCase):
     maxDiff = None
 
     def setUp(self) -> None:
-        with open("resources/SignerOutputStream.java", "rt", encoding="utf8") as inf:
+        with open("./resources/SignerOutputStream.java", "rt", encoding="utf8") as inf:
             self.code = inf.read()
 
         self.scp = sourcy.load("java")
@@ -16,7 +16,7 @@ class TestJava(unittest.TestCase):
         self.parsed = self.scp(self.code)
 
     def test_parser(self):
-        with open("resources/SignerOutputStream.tokens.gold", "rt", encoding="utf8") as inf:
+        with open("./resources/SignerOutputStream.tokens.gold", "rt", encoding="utf8") as inf:
             self.gold = [x.strip() for x in inf.read().split("|")]
 
         self.assertListEqual([item.token.strip() for item in self.parsed], self.gold)
@@ -28,7 +28,7 @@ class TestJava(unittest.TestCase):
         self.assertEqual(len(list(self.parsed.comments)), 4)
 
     def test_identifiers(self):
-        with open("resources/SignerOutputStream.identifiers.gold", "rt", encoding="utf8") as inf:
+        with open("./resources/SignerOutputStream.identifiers.gold", "rt", encoding="utf8") as inf:
             self.gold = [x.strip() for x in inf.read().split("|")]
 
         self.assertListEqual([item.token.strip() for item in self.parsed.identifiers], self.gold)
