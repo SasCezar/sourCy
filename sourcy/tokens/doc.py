@@ -53,8 +53,12 @@ class Document(object):
 
     @property
     def classes(self) -> Generator[Token, None, None]:
-        pass
+        for token in self.tokens:
+            if token.annotation == "identifier" and token.block == "class_declaration":
+                yield token
 
     @property
     def comments(self) -> Generator[Token, None, None]:
-        pass
+        for token in self.tokens:
+            if token.annotation == "comment":
+                yield token

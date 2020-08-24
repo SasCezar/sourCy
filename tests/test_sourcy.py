@@ -1,21 +1,38 @@
-#!/usr/bin/env python
-
 """Tests for `sourcy` package."""
+import unittest
 
-import pytest
-
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
+import sourcy
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+class TestJava(unittest.TestCase):
+    maxDiff = None
+
+    def setUp(self) -> None:
+        with open("resources/SignerOutputStream.java", "rt", encoding="utf8") as inf:
+            self.code = inf.read()
+
+        self.scp = sourcy.load("java")
+
+        self.parsed = self.scp(self.code)
+
+    def test_parser(self):
+        with open("resources/SignerOutputStream.tokens.gold", "rt", encoding="utf8") as inf:
+            self.gold = [x.strip() for x in inf.read().split("|")]
+
+        self.assertListEqual([item.token.strip() for item in self.parsed], self.gold)
+
+    def test_classes(self):
+        self.assertListEqual([item.token.strip() for item in self.parsed.classes], ["SignerOutputStream"])
+
+    def test_comments(self):
+        self.assertEqual(len(list(self.parsed.comments)), 4)
+
+    def test_identifiers(self):
+        with open("resources/SignerOutputStream.identifiers.gold", "rt", encoding="utf8") as inf:
+            self.gold = [x.strip() for x in inf.read().split("|")]
+
+        self.assertListEqual([item.token.strip() for item in self.parsed.identifiers], self.gold)
+
+
+if __name__ == '__main__':
+    unittest.main()
